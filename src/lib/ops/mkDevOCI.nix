@@ -40,6 +40,7 @@ in
     devshell,
     runtimeShell ? nixpkgs.bashInteractive,
     vscode ? false,
+    reproducible ? true,
     slim ? false,
     user ? "user",
     tag ? null,
@@ -207,6 +208,7 @@ in
       layers = [
         (nix2container.buildLayer {
           deps = preLoadStorePaths;
+          inherit reproducible;
           copyToRoot = [
             (nixpkgs.buildEnv
               {
